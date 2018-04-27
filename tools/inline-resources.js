@@ -100,17 +100,18 @@ function inlineStyle(content, urlResolver) {
   return content.replace(/styleUrls\s*:\s*(\[[\s\S]*?\])/gm, function (m, styleUrls) {
     const urls = eval(styleUrls);
     return 'styles: ['
-      + urls.map(styleUrl => {
-        const styleFile = urlResolver(styleUrl);
-        const originContent = fs.readFileSync(styleFile, 'utf-8');
-        const styleContent = styleFile.endsWith('.scss') ? buildSass(originContent, styleFile) : originContent;
-        const shortenedStyle = styleContent
-          .replace(/([\n\r]\s*)+/gm, ' ')
-          .replace(/"/g, '\\"');
-        return `"${shortenedStyle}"`;
-      })
-        .join(',\n')
-      + ']';
+        + urls.map(styleUrl => {
+          const styleFile = urlResolver(styleUrl);
+    const originContent = fs.readFileSync(styleFile, 'utf-8');
+    const styleContent = styleFile.endsWith('.scss') ? buildSass(originContent, styleFile) : originContent;
+    const shortenedStyle = styleContent
+        .replace(/([\n\r]\s*)+/gm, ' ')
+        .replace(/\\/g, '\\\\')
+        .replace(/"/g, '\\"');
+    return `"${shortenedStyle}"`;
+  })
+    .join(',\n')
+    + ']';
   });
 }
 
