@@ -35,6 +35,15 @@ gulp.task('copy:source', function () {
 });
 
 /**
+ * 2.5. Copy assets from /src to /dist
+ */
+gulp.task('copy:assets', function () {
+    return gulp.src([`${srcFolder}/assets/**/*`])
+        .pipe(gulp.dest(distFolder + '/assets/'));
+});
+
+
+/**
  * 3. Inline template (.html) and style (.css) files into the the component .ts files.
  *    We do this on the /.tmp folder to avoid editing the original /src files
  */
@@ -185,6 +194,7 @@ gulp.task('compile', function () {
   runSequence(
     'clean:dist',
     'copy:source',
+    'copy:assets',
     'inline-resources',
     'ngc',
     'rollup:fesm',

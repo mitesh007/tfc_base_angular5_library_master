@@ -9,8 +9,8 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
-        { "glob": "**/*", "input": "../node_modules/tfc/assets", "output": "./assets/" }
+        "favicon.ico",
+        { "glob": "**/*", "input": "../node_modules/tfc-base-angular5-library/assets", "output": "./assets/" }
       ],
       "index": "index.html",
       "main": "main.ts",
